@@ -1,47 +1,77 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { Scene } from "../types/music";
 import "./SceneBackground.css";
 
 interface SceneBackgroundProps {
   scene: Scene;
+  visible?: boolean;
+  mode?: "normal" | "mehfil";
+  backgroundImage?: string;
+  secondaryImage?: string;
 }
 
 function SceneBackground({
   scene,
+  visible = true,
+  mode = "normal",
+  backgroundImage,
+  secondaryImage,
 }: SceneBackgroundProps) {
+  const isMehfil = mode === "mehfil";
+  const primaryImage =
+    isMehfil && backgroundImage
+      ? backgroundImage
+      : scene.image;
+  const opacityDuration = isMehfil ? 0.55 : 0.4;
+  const scaleDuration = isMehfil ? 11 : 8;
+
   return (
-    <div className="scene-background">
-      <AnimatePresence mode="sync">
+    <div
+      className={`scene-background ${
+        isMehfil ? "scene-mode-mehfil" : ""
+      }`}
+    >
+      {secondaryImage && (
         <motion.div
-          key={scene.id}
-          className="scene-image"
+          key={`secondary-${scene.id}`}
+          className="scene-secondary"
           style={{
-            backgroundImage: `url(${scene.image})`,
+            backgroundImage: `url(${secondaryImage})`,
           }}
-          initial={{
-            opacity: 0,
-            scale: 1.04,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          exit={{
-            opacity: 0,
-            scale: 1.02,
-          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: visible ? 0.16 : 0 }}
           transition={{
-            opacity: {
-              duration: 0.4,
-              ease: "easeInOut",
-            },
-            scale: {
-              duration: 8,
-              ease: "easeOut",
-            },
+            duration: 1.2,
+            ease: "easeOut",
           }}
         />
-      </AnimatePresence>
+      )}
+
+      <motion.div
+        key={`primary-${scene.id}-${isMehfil}`}
+        className="scene-image"
+        style={{
+          backgroundImage: `url(${primaryImage})`,
+        }}
+        initial={{
+          opacity: visible ? 0 : 0,
+          scale: 1.04,
+        }}
+        animate={{
+          opacity: visible ? 1 : 0,
+          scale: 1,
+        }}
+        transition={{
+          opacity: {
+            duration: opacityDuration,
+            ease: "easeInOut",
+          },
+          scale: {
+            duration: scaleDuration,
+            ease: "easeOut",
+          },
+        }}
+      />
 
       <div className="scene-overlay" />
 

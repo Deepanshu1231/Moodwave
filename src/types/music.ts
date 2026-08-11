@@ -11,6 +11,20 @@ export interface Scene {
   image: string;
 }
 
+export interface PoetryExcerpt {
+  text: string;
+  source: string;
+}
+
+export interface ArchiveItem {
+  id: string;
+  category: string;
+  title: string;
+  shortDescription: string;
+  year?: string;
+  source?: string;
+}
+
 export interface Playlist {
   id: string;
   name: string;
@@ -21,6 +35,12 @@ export interface Playlist {
   accent: string;
   scenes: Scene[];
   songs: Song[];
+  specialClass?: string;
+  portraitImage?: string;
+  customLabel?: string;
+  customLinerText?: string;
+  poetryExcerpts?: PoetryExcerpt[];
+  archiveItems?: ArchiveItem[];
 }
 
 export type Category = "hindi" | "punjabi" | "english";

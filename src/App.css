@@ -147,6 +147,349 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+.mehfil-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.24);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.mehfil-toggle-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mehfil-toggle-button.active {
+  border-color: rgba(214, 160, 90, 0.55);
+  background: rgba(205, 150, 72, 0.18);
+  color: rgba(255, 241, 197, 0.96);
+}
+
+.player-page-sartaaj.mehfil-mode .bg-toggle-button,
+.player-page-sartaaj.mehfil-mode .scene-button,
+.player-page-sartaaj.mehfil-mode .back-button,
+.player-page-sartaaj.mehfil-mode .mehfil-toggle-button {
+  border-color: rgba(210, 153, 84, 0.55);
+  background: rgba(34, 24, 16, 0.42);
+  color: rgba(247, 218, 165, 0.94);
+}
+
+.player-page-sartaaj.mehfil-mode .bg-toggle-button:hover,
+.player-page-sartaaj.mehfil-mode .scene-button:hover,
+.player-page-sartaaj.mehfil-mode .back-button:hover,
+.player-page-sartaaj.mehfil-mode .mehfil-toggle-button:hover {
+  background: rgba(56, 35, 17, 0.55);
+  border-color: rgba(241, 199, 109, 0.72);
+}
+
+.player-page-sartaaj.mehfil-mode .playlist-special-label {
+  color: rgba(233, 187, 126, 0.96);
+}
+
+.player-page-sartaaj .top-controls {
+  gap: 10px;
+}
+
+.player-page-sartaaj.mehfil-mode .scene-button {
+  box-shadow: 0 0 0 1px rgba(255, 236, 184, 0.1);
+}
+
+.player-page-sartaaj.mehfil-mode .playlist-intro {
+  filter: saturate(0.92);
+}
+
+.player-page-sartaaj.mehfil-mode .playlist-portrait {
+  width: clamp(220px, 26vw, 320px);
+  height: auto;
+  aspect-ratio: 4 / 5;
+  margin-bottom: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(222, 183, 118, 0.3);
+  box-shadow: 0 32px 70px rgba(12, 8, 5, 0.32);
+  background: rgba(20, 13, 9, 0.32);
+  object-fit: cover;
+  filter: sepia(0.18) contrast(0.92) brightness(0.96);
+  transform-origin: center;
+  animation: portraitZoom 38s ease-in-out infinite alternate;
+}
+
+@keyframes portraitZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.025);
+  }
+}
+
+.player-page-sartaaj.mehfil-mode .playlist-liner {
+  color: rgba(238, 229, 208, 0.86);
+}
+
+.player-page-sartaaj.mehfil-mode .player-hint {
+  opacity: 0.92;
+}
+
+.player-page-sartaaj.mehfil-mode {
+  background: transparent;
+}
+
+.player-page-sartaaj.mehfil-mode::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 236, 191, 0.04),
+    transparent 40%
+  );
+  mix-blend-mode: screen;
+}
+
+.player-page-sartaaj.mehfil-mode .player-page-content {
+  position: relative;
+  z-index: 3;
+}
+
+.player-page-sartaaj.mehfil-mode::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 232, 180, 0.03),
+    transparent 35%
+  );
+}
+
+.mehfil-panel {
+  width: min(520px, 92vw);
+  margin: 18px auto 0;
+  padding: 16px;
+  border-radius: 24px;
+  background: rgba(12, 7, 4, 0.64);
+  border: 1px solid rgba(217, 175, 109, 0.16);
+  box-shadow: 0 20px 40px rgba(8, 4, 1, 0.22);
+}
+
+.mehfil-archive {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  padding-top: 8px;
+}
+
+.archive-header,
+.archive-title {
+  max-width: 100%;
+}
+
+.archive-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.archive-nav-button {
+  padding: 10px 12px;
+  font-size: 10px;
+}
+
+
+@media (max-width: 640px) {
+  .mehfil-panel {
+    width: min(100%, 92vw);
+    padding: 14px;
+    margin-top: 16px;
+  }
+
+  .archive-counter {
+    font-size: 9px;
+  }
+
+  .archive-title {
+    font-size: 17px;
+  }
+
+  .archive-description {
+    font-size: 12px;
+  }
+
+  .archive-nav-button {
+    font-size: 9px;
+    padding: 9px 10px;
+  }
+}
+
+.wow-moment-card {
+  width: min(560px, 92vw);
+  margin: 22px auto 0;
+  padding: 22px;
+  border-radius: 28px;
+  background: rgba(10, 6, 3, 0.75);
+  border: 1px solid rgba(217, 178, 104, 0.18);
+  box-shadow: 0 22px 48px rgba(6, 3, 1, 0.28);
+  color: rgba(255, 246, 226, 0.92);
+}
+
+.wow-moment-header {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.wow-moment-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(212, 163, 90, 0.16);
+  color: rgba(255, 241, 196, 0.94);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.wow-moment-title {
+  margin: 0;
+  font-size: clamp(24px, 3.2vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: rgba(255, 248, 236, 0.98);
+}
+
+.wow-moment-subtitle {
+  margin: 0;
+  color: rgba(233, 213, 178, 0.84);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.wow-moment-body {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.wow-moment-image {
+  width: 100%;
+  border-radius: 22px;
+  object-fit: cover;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+}
+
+.wow-moment-story {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.wow-moment-section-heading {
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 235, 205, 0.9);
+}
+
+.wow-moment-section-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.85;
+  color: rgba(245, 238, 225, 0.92);
+}
+
+.wow-moment-highlight {
+  color: rgba(255, 221, 149, 0.95);
+  font-weight: 600;
+}
+
+.wow-moment-closing {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(47, 30, 17, 0.42);
+  color: rgba(255, 240, 216, 0.96);
+  font-size: 14px;
+  line-height: 1.7;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.wow-moment-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wow-moment-continue {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(217, 173, 107, 0.28);
+  background: rgba(38, 24, 12, 0.52);
+  color: rgba(255, 244, 205, 0.96);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  cursor: pointer;
+  transition: background 0.22s ease, transform 0.18s ease;
+}
+
+.wow-moment-continue:hover {
+  background: rgba(82, 52, 27, 0.55);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+  .wow-moment-body {
+    grid-template-columns: 1fr;
+  }
+
+  .wow-moment-image {
+    height: 240px;
+  }
+}
+
+.player-page-sartaaj.mehfil-mode .scene-button:hover {
+  background: rgba(135, 99, 52, 0.26);
+}
+
+.player-page-sartaaj.mehfil-mode .music-player {
+  filter: saturate(0.95);
+}
+
+.player-page-sartaaj.mehfil-mode .now-playing-label,
+.player-page-sartaaj.mehfil-mode .song-artist,
+.player-page-sartaaj.mehfil-mode .progress-times {
+  color: rgba(247, 223, 183, 0.74);
+}
+
+.player-page-sartaaj.mehfil-mode .progress-slider {
+  background: rgba(255, 229, 178, 0.16);
+}
+
+.player-page-sartaaj.mehfil-mode .progress-slider::-webkit-slider-thumb,
+.player-page-sartaaj.mehfil-mode .progress-slider::-moz-range-thumb {
+  background: rgba(249, 241, 193, 0.96);
+}
+
 .player-station-mark {
   position: absolute;
   top: 30px;
@@ -220,6 +563,33 @@
 
   text-shadow:
     0 2px 18px rgba(0, 0, 0, 0.7);
+}
+
+.playlist-portrait {
+  display: block;
+  margin: 0 auto 18px;
+  width: clamp(100px, 14vw, 140px);
+  height: clamp(100px, 14vw, 140px);
+  object-fit: cover;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.player-page-sartaaj .playlist-portrait {
+  width: clamp(180px, 24vw, 280px);
+  height: clamp(220px, 30vw, 340px);
+  border-radius: 18px;
+  border: 1px solid rgba(244, 205, 132, 0.25);
+  box-shadow: 0 28px 60px rgba(8, 5, 2, 0.28);
+  filter: sepia(0.14) saturate(0.88) contrast(0.96) brightness(0.98);
+  background: rgba(18, 12, 9, 0.35);
+}
+
+.playlist-special-label {
+  margin: 0 0 8px;
+  color: rgba(244, 205, 132, 0.92);
+  font-size: 10px;
+  letter-spacing: 0.28em;
 }
 
 .playlist-category {
@@ -302,6 +672,96 @@
 
   justify-content: center;
 }
+
+.mehfil-archive {
+  width: min(460px, 90vw);
+  margin: 18px auto 0;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: rgba(14, 9, 5, 0.72);
+  border: 1px solid rgba(217, 178, 104, 0.18);
+  box-shadow: 0 22px 44px rgba(6, 3, 1, 0.24);
+  color: rgba(255, 243, 212, 0.92);
+  text-align: left;
+}
+
+  .archive-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: rgba(255, 236, 190, 0.86);
+    text-transform: uppercase;
+  }
+
+  .archive-counter {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .archive-content {
+    min-height: 132px;
+  }
+
+  .archive-category {
+    margin: 0 0 4px;
+    color: rgba(239, 208, 156, 0.84);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .archive-title {
+    margin: 0 0 10px;
+    font-size: clamp(18px, 2.2vw, 22px);
+    line-height: 1.25;
+    color: rgba(255, 250, 234, 0.96);
+  }
+
+  .archive-description {
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(247, 236, 222, 0.90);
+  }
+
+  .archive-source {
+    margin: 0;
+    font-size: 10px;
+    color: rgba(231, 200, 133, 0.82);
+    letter-spacing: 0.16em;
+  }
+
+  .archive-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .archive-nav-button {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(221, 184, 109, 0.22);
+    background: rgba(33, 20, 11, 0.42);
+    color: rgba(255, 245, 209, 0.94);
+    font-size: 10px;
+    letter-spacing: 0.20em;
+    cursor: pointer;
+    transition: background 0.24s ease, transform 0.18s ease;
+  }
+
+  .archive-nav-button:hover {
+    background: rgba(77, 50, 26, 0.55);
+    transform: translateY(-1px);
+  }
+
+  .player-page-sartaaj.mehfil-mode .mehfil-archive {
+    border-color: rgba(217, 173, 107, 0.32);
+    background: rgba(22, 13, 8, 0.78);
+  }
 
 .music-player {
   width: 100%;
@@ -675,3 +1135,4 @@
     gap: 8px;
   }
 }
+  

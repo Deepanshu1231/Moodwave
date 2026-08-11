@@ -6,11 +6,13 @@ import PlayerControls from "./PlayerControls";
 interface MusicPlayerProps {
   songs: Song[];
   onTrackChange?: (index: number) => void;
+  titleLabel?: string;
 }
 
 function MusicPlayer({
   songs,
   onTrackChange,
+  titleLabel = "NOW PLAYING",
 }: MusicPlayerProps) {
   const {
     currentIndex,
@@ -91,7 +93,7 @@ function MusicPlayer({
 
       <section className="now-playing">
         <p className="now-playing-label">
-          NOW PLAYING
+          {titleLabel}
         </p>
 
         <h2 className="song-title">
