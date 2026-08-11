@@ -1,0 +1,809 @@
+.playlist-container {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  padding:
+    clamp(20px, 3vh, 32px)
+    clamp(22px, 4vw, 60px);
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.07),
+      transparent 35%
+    ),
+    #0d0e12;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   FILM GRAIN
+========================================= */
+
+.playlist-container::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.035;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================
+   STATION HEADER
+========================================= */
+
+.station-header {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(1180px, 100%);
+
+  margin: 0 auto;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  font-size: 10px;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+}
+
+
+.station-brand {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+
+.station-name {
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+}
+
+
+.station-tagline {
+  color:
+    rgba(255, 255, 255, 0.42);
+
+  font-size: 9px;
+
+  letter-spacing: 0.12em;
+}
+
+
+.station-code {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 4px;
+
+  color:
+    rgba(255, 255, 255, 0.5);
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.playlist-hero {
+  position: relative;
+
+  z-index: 2;
+
+  text-align: center;
+
+  margin:
+    clamp(22px, 4vh, 42px)
+    auto
+    0;
+}
+
+
+.hero-eyebrow {
+  margin: 0 0 10px;
+
+  font-size: 10px;
+
+  letter-spacing: 0.28em;
+
+  color:
+    rgba(244, 205, 132, 0.78);
+}
+
+
+.playlist-heading {
+  position: relative;
+
+  margin: 0;
+
+  font-size:
+    clamp(48px, 6.5vw, 82px);
+
+  font-weight: 500;
+
+  letter-spacing: -0.055em;
+
+  line-height: 0.95;
+}
+
+
+.hero-subtitle {
+  margin:
+    14px 0 0;
+
+  font-size: 10px;
+
+  letter-spacing: 0.22em;
+
+  color:
+    rgba(255, 255, 255, 0.42);
+}
+
+
+/* =========================================
+   CATEGORY SELECTOR
+========================================= */
+
+.toggle-wrapper {
+  position: relative;
+
+  z-index: 3;
+
+  display: flex;
+
+  justify-content: center;
+
+  margin-top:
+    clamp(18px, 2.5vh, 28px);
+
+  margin-bottom:
+    clamp(12px, 2vh, 20px);
+}
+
+
+.toggle-track {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  width: 300px;
+
+  height: 54px;
+
+  padding: 4px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  backdrop-filter: blur(14px);
+
+  cursor: pointer;
+
+  user-select: none;
+
+  transition:
+    border-color 200ms ease,
+    background 200ms ease;
+}
+
+
+.toggle-track:hover {
+  border-color:
+    rgba(255, 255, 255, 0.24);
+
+  background:
+    rgba(255, 255, 255, 0.075);
+}
+
+
+.toggle-thumb {
+  position: absolute;
+
+  top: 4px;
+
+  left: 4px;
+
+  width: calc((100% - 8px) / 3);
+
+  height: 46px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff5d63,
+      #ffb35c
+    );
+
+  box-shadow:
+    0 8px 28px
+    rgba(0, 0, 0, 0.35);
+
+  pointer-events: none;
+}
+
+
+.toggle-label {
+  position: relative;
+
+  z-index: 2;
+
+  width: 33.3333%;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color:
+    rgba(255, 255, 255, 0.45);
+
+  pointer-events: none;
+
+  transition:
+    color 180ms ease;
+}
+
+
+.toggle-label.active {
+  color: #ffffff;
+}
+
+
+/* =========================================
+   ON AIR
+========================================= */
+
+.on-air-row {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-bottom:
+    clamp(12px, 2vh, 20px);
+
+  font-size: 9px;
+
+  letter-spacing: 0.2em;
+
+  color:
+    rgba(255, 255, 255, 0.55);
+}
+
+
+.on-air-dot {
+  width: 6px;
+
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #e9b96e;
+
+  box-shadow:
+    0 0 10px
+    rgba(233, 185, 110, 0.6);
+
+  animation:
+    onAirPulse 2.2s ease-in-out infinite;
+}
+
+
+.on-air-line {
+  width: 40px;
+
+  height: 1px;
+
+  background:
+    rgba(255, 255, 255, 0.16);
+
+  margin-left: 4px;
+}
+
+
+.on-air-category {
+  color:
+    rgba(244, 205, 132, 0.8);
+}
+
+
+@keyframes onAirPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================
+   PLAYLIST GRID
+========================================= */
+
+.playlist-grid {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(1180px, 100%);
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  grid-auto-rows: 1fr;
+
+  align-items: stretch;
+
+  gap:
+    clamp(10px, 1.4vh, 16px);
+
+  perspective: 1200px;
+}
+
+
+/* =========================================
+   PLAYLIST CARD
+========================================= */
+
+.playlist-card {
+  position: relative;
+
+  min-height:
+    clamp(150px, 20vh, 210px);
+
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-end;
+
+  overflow: hidden;
+
+  padding:
+    clamp(18px, 2vw, 26px);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  isolation: isolate;
+
+  box-shadow:
+    0 18px 38px
+    rgba(0, 0, 0, 0.28);
+
+  transition:
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    filter 250ms ease;
+}
+
+
+/* =========================================
+   CARD IMAGE
+========================================= */
+
+.playlist-card-image {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -2;
+
+  background-size: cover;
+
+  background-position: center;
+
+  transform: scale(1);
+
+  transition:
+    transform 420ms ease,
+    filter 250ms ease;
+}
+
+
+/* =========================================
+   CARD OVERLAY
+========================================= */
+
+.playlist-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -1;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.92),
+      rgba(0, 0, 0, 0.18) 68%,
+      rgba(0, 0, 0, 0.02)
+    );
+
+  opacity: 0.92;
+
+  transition:
+    opacity 250ms ease;
+}
+
+
+/* =========================================
+   CARD INNER BORDER
+========================================= */
+
+.playlist-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -1;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0);
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(255, 255, 255, 0);
+
+  transition:
+    border-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+
+/* =========================================
+   CARD HOVER
+========================================= */
+
+.playlist-card:hover {
+  border-color:
+    rgba(244, 205, 132, 0.36);
+
+  box-shadow:
+    0 22px 46px
+    rgba(0, 0, 0, 0.38),
+
+    0 0 22px
+    rgba(244, 205, 132, 0.08);
+}
+
+
+.playlist-card:hover
+.playlist-card-image {
+  transform: scale(1.055);
+
+  filter:
+    saturate(1.04)
+    contrast(1.03);
+}
+
+
+.playlist-card:hover::before {
+  opacity: 1;
+}
+
+
+.playlist-card:hover::after {
+  border-color:
+    rgba(244, 205, 132, 0.16);
+
+  box-shadow:
+    inset 0 0 28px
+    rgba(244, 205, 132, 0.08);
+}
+
+
+/* =========================================
+   CARD CONTENT
+========================================= */
+
+.playlist-card-content {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 3px;
+}
+
+
+.playlist-card-text {
+  font-size:
+    clamp(24px, 2.8vw, 36px);
+
+  font-weight: 500;
+
+  letter-spacing: -0.035em;
+
+  line-height: 1;
+
+  text-shadow:
+    0 3px 20px
+    rgba(0, 0, 0, 0.8);
+
+  transition:
+    transform 250ms ease,
+    text-shadow 250ms ease;
+}
+
+
+.playlist-card-subtitle {
+  font-size: 9px;
+
+  letter-spacing: 0.2em;
+
+  color:
+    rgba(255, 255, 255, 0.65);
+}
+
+
+.playlist-card-count {
+  margin-top: 5px;
+
+  font-size: 8px;
+
+  letter-spacing: 0.18em;
+
+  color:
+    rgba(244, 205, 132, 0.78);
+}
+
+
+.playlist-card:hover
+.playlist-card-content {
+  transform: translateY(-5px);
+}
+
+
+.playlist-card-content {
+  transition:
+    transform 250ms ease;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.station-footer {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(1180px, 100%);
+
+  margin:
+    clamp(10px, 1.5vh, 18px)
+    auto
+    0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+
+  font-size: 8px;
+
+  letter-spacing: 0.16em;
+
+  color:
+    rgba(255, 255, 255, 0.28);
+
+  text-align: center;
+}
+
+
+.footer-divider {
+  color:
+    rgba(244, 205, 132, 0.45);
+}
+
+
+/* =========================================
+   LAPTOP HEIGHT ADJUSTMENT
+========================================= */
+
+@media (max-height: 760px) and (min-width: 701px) {
+
+  .playlist-container {
+    padding-top: 18px;
+    padding-bottom: 14px;
+  }
+
+  .playlist-hero {
+    margin-top: 18px;
+  }
+
+  .playlist-heading {
+    font-size: clamp(42px, 5.5vw, 68px);
+  }
+
+  .hero-subtitle {
+    margin-top: 8px;
+  }
+
+  .toggle-wrapper {
+    margin-top: 14px;
+    margin-bottom: 10px;
+  }
+
+  .on-air-row {
+    margin-bottom: 10px;
+  }
+
+  .playlist-card {
+    min-height: 145px;
+  }
+
+  .station-footer {
+    margin-top: 8px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+  .playlist-container {
+    min-height: 100vh;
+
+    height: auto;
+
+    overflow-y: auto;
+
+    padding:
+      28px 18px 32px;
+  }
+
+
+  .station-header {
+    font-size: 9px;
+  }
+
+
+  .station-tagline {
+    display: none;
+  }
+
+
+  .playlist-hero {
+    margin-top: 45px;
+  }
+
+
+  .playlist-heading {
+    font-size:
+      clamp(42px, 13vw, 64px);
+  }
+
+
+  .hero-subtitle {
+    font-size: 8px;
+
+    letter-spacing: 0.16em;
+  }
+
+
+  .toggle-wrapper {
+    margin-top: 26px;
+
+    margin-bottom: 16px;
+  }
+
+
+  .toggle-track {
+    width: min(300px, 94vw);
+  }
+
+
+  .toggle-thumb {
+    width:
+      calc((100% - 8px) / 3);
+  }
+
+
+  .toggle-label {
+    font-size: 12px;
+  }
+
+
+  .playlist-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+
+  .playlist-card {
+    min-height: 210px;
+  }
+
+
+  .station-footer {
+    margin-top: 22px;
+
+    flex-wrap: wrap;
+
+    line-height: 1.5;
+  }
+}
