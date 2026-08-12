@@ -1,24 +1,23 @@
 .playlist-container {
   position: relative;
 
-  width: 100%;
-  height: 100vh;
-  height: 100svh;
+  width: 100%;min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 
-  overflow: hidden;
 
   box-sizing: border-box;
 
   padding:
-    clamp(20px, 3vh, 32px)
+    clamp(14px, 2vh, 22px)
     clamp(22px, 4vw, 60px);
 
   background:
-  linear-gradient(
-    rgba(7, 9, 11, 0.62),
-    rgba(7, 9, 11, 0.68)
-  ),
-  url("/images/independence-banner.jpg") center / cover no-repeat fixed;
+    linear-gradient(
+      rgba(7, 9, 11, 0.22),
+      rgba(7, 9, 11, 0.28)
+    ),
+    url("/images/independence-banner.jpg") center / cover no-repeat scroll;
 
   color: #ffffff;
 }
@@ -122,16 +121,16 @@
   z-index: 2;
 
   text-align: center;
-
+   padding-top: -25px;
   margin:
-    clamp(22px, 4vh, 42px)
+    clamp(12px, 3vh, 28px)
     auto
     0;
 }
 
 
 .hero-eyebrow {
-  margin: 0 0 10px;
+  margin: 0 0 6px;
 
   font-size: 10px;
 
@@ -160,7 +159,7 @@
 
 .hero-subtitle {
   margin:
-    14px 0 0;
+    8px 0 0;
 
   font-size: 10px;
 
@@ -185,10 +184,10 @@
   justify-content: center;
 
   margin-top:
-    clamp(18px, 2.5vh, 28px);
+    clamp(12px, 2vh, 20px);
 
   margin-bottom:
-    clamp(12px, 2vh, 20px);
+    clamp(8px, 1.4vh, 14px);
 }
 
 
@@ -311,7 +310,7 @@
   gap: 8px;
 
   margin-bottom:
-    clamp(12px, 2vh, 20px);
+    clamp(12px, 1.6vh, 18px);
 
   font-size: 9px;
 
@@ -407,7 +406,7 @@
   position: relative;
 
   min-height:
-    clamp(150px, 20vh, 210px);
+    clamp(140px, 16vh, 170px);
 
   height: 100%;
 
@@ -816,8 +815,8 @@
 .seasonal-broadcast {
   position: relative;
   width: min(1180px, 100%);
-  height: 128px;
-  margin: 18px auto 22px;
+  min-height: 96px;
+  margin: 0 auto clamp(16px, 2vh, 20px);
   overflow: hidden;
 
   display: flex;
@@ -856,7 +855,7 @@
   position: relative;
   z-index: 2;
 
-  padding: 20px 28px;
+  padding: 22px 24px;
   max-width: 700px;
 
   color: #f4eee3;
@@ -905,13 +904,13 @@
 @media (max-width: 700px) {
 
   .seasonal-broadcast {
-    height: 120px;
+    min-height: 120px;
     margin-top: 16px;
     margin-bottom: 18px;
   }
 
   .seasonal-broadcast-content {
-    padding: 18px 20px;
+    padding: 20px 20px;
   }
 
   .seasonal-broadcast-eyebrow {
@@ -927,5 +926,304 @@
     font-size: 10px;
     line-height: 1.4;
     letter-spacing: 0.04em;
+  }
+}
+
+.seasonal-broadcast-button {
+  margin-top: 18px;
+  padding: 10px 20px;
+  border: 1px solid rgba(214, 164, 93, 0.65);
+  border-radius: 999px;
+  background: rgba(15, 14, 12, 0.72);
+  color: #e6d2a6;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.seasonal-broadcast-button:hover {
+  background: rgba(214, 164, 93, 0.12);
+  border-color: rgba(214, 164, 93, 0.9);
+  transform: translateY(-1px);
+}
+
+/* Broadcast active subtle glow and inner overlay */
+.seasonal-broadcast.active {
+  box-shadow: 0 18px 40px rgba(0,0,0,0.36), 0 0 18px rgba(244,205,132,0.04);
+}
+
+.seasonal-broadcast.active::after {
+  opacity: 0.95;
+  background: linear-gradient(90deg, rgba(244,205,132,0.09), rgba(0,0,0,0.12));
+}
+
+.broadcast-extras {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.broadcast-onair {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.broadcast-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e9b96e;
+  box-shadow: 0 0 8px rgba(233,185,110,0.6);
+  animation: onAirPulse 1.8s ease-in-out infinite;
+}
+
+.broadcast-meta .broadcast-station {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: rgba(214,164,93,0.92);
+}
+
+.broadcast-meta .broadcast-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.broadcast-nowplaying {
+  max-width: 420px;
+}
+
+.broadcast-quote-wrap {
+  max-width: 480px;
+}
+
+.broadcast-quote {
+  margin: 0;
+  padding: 8px 0 0;
+  font-size: 13px;
+  color: rgba(244,238,227,0.86);
+}
+
+/* Compact inline music player styling when inside the banner */
+.seasonal-broadcast .music-player {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.seasonal-broadcast .music-player .now-playing {
+  text-align: right;
+}
+
+.seasonal-broadcast .music-player .now-playing .now-playing-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  margin-bottom: 4px;
+  color: rgba(214,164,93,0.9);
+}
+
+.seasonal-broadcast .music-player .song-title {
+  font-size: 15px;
+  margin: 0;
+}
+
+.seasonal-broadcast .music-player .song-artist {
+  font-size: 12px;
+  color: rgba(244,238,227,0.8);
+}
+
+/* Thin progress bar inside the banner */
+.seasonal-broadcast .player-progress {
+  width: 100%;
+  max-width: 320px;
+}
+
+.seasonal-broadcast .player-progress .progress-times {
+  display: none;
+}
+
+.seasonal-broadcast .player-progress .progress-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+}
+
+.seasonal-broadcast .player-progress .progress-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e9b96e;
+  box-shadow: 0 0 6px rgba(233,185,110,0.45);
+}
+
+/* Compact controls */
+.seasonal-broadcast .player-controls {
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.seasonal-broadcast .player-main-controls {
+  gap: 10px;
+}
+
+.seasonal-broadcast .player-main-controls button {
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+}
+
+.seasonal-broadcast .player-main-controls button:nth-child(2) {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+
+.seasonal-broadcast .player-volume {
+  width: 120px;
+}
+
+@media (max-width: 700px) {
+  .broadcast-extras {
+    grid-template-columns: 1fr;
+  }
+
+  .broadcast-nowplaying {
+    max-width: 100%;
+  }
+
+  .broadcast-quote-wrap {
+    max-width: 100%;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  height: auto;
+}
+
+body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#root {
+  overflow: visible;
+}
+
+/* =========================================
+   SEASONAL BROADCAST — PLAYER ALIGNMENT FIX
+   ========================================= */
+
+.seasonal-broadcast .music-player {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Center the currently playing information */
+.seasonal-broadcast .music-player .now-playing {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.seasonal-broadcast .music-player .now-playing .now-playing-label {
+  text-align: center;
+}
+
+.seasonal-broadcast .music-player .song-title {
+  text-align: center;
+  margin: 0;
+}
+
+.seasonal-broadcast .music-player .song-artist {
+  text-align: center;
+  display: block;
+}
+
+/* Center and widen the progress bar */
+.seasonal-broadcast .player-progress {
+  width: min(100%, 420px);
+  max-width: 420px;
+  margin: 4px auto 0;
+}
+
+.seasonal-broadcast .player-progress .progress-slider {
+  width: 100%;
+  display: block;
+}
+
+/* Keep all playback controls centered */
+.seasonal-broadcast .player-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.seasonal-broadcast .player-main-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Keep volume control from pulling the layout to one side */
+.seasonal-broadcast .player-volume {
+  width: 120px;
+  margin-left: 8px;
+}
+
+/* Quote stays centered below the player */
+.seasonal-broadcast .broadcast-quote-wrap {
+  width: 100%;
+  max-width: 620px;
+  margin: 12px auto 0;
+  text-align: center;
+}
+
+.seasonal-broadcast .broadcast-quote {
+  text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  .seasonal-broadcast .music-player {
+    align-items: center;
+  }
+
+  .seasonal-broadcast .player-progress {
+    width: min(100%, 340px);
+  }
+
+  .seasonal-broadcast .player-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .seasonal-broadcast .player-volume {
+    width: 100px;
   }
 }

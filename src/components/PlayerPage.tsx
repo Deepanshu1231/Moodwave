@@ -21,6 +21,10 @@ import {
   sartaajWowMoments,
 } from "../data/sartaajWowMoments";
 
+import {
+  independenceDayBroadcast,
+} from "../data/specialBroadcasts";
+
 import type {
   Category,
 } from "../types/music";
@@ -73,27 +77,36 @@ function PlayerPage() {
   const sceneIndexRef = useRef(0);
 
   const {
-    category,
-    id,
+  category,
+  id,
+  broadcastId,
   } = useParams<{
-    category: string;
-    id: string;
+    category?: string;
+    id?: string;
+    broadcastId?: string;
   }>();
 
   const navigate = useNavigate();
 
-  const validCategory =
-    isCategory(category);
+  const validCategory = isCategory(category);
 
-  const playlists =
-    validCategory
-      ? playlistsByCategory[category]
-      : [];
+const playlists =
+  validCategory
+    ? playlistsByCategory[category]
+    : [];
 
-  const playlist =
-    playlists.find(
-      (item) => item.id === id
-    );
+const regularPlaylist =
+  playlists.find(
+    (item) => item.id === id
+  );
+
+const broadcast =
+  broadcastId === independenceDayBroadcast.id
+    ? independenceDayBroadcast
+    : undefined;
+
+const playlist =
+  broadcast?.playlist ?? regularPlaylist;
 
   /*
    * Hooks must always run in the same order.
@@ -259,7 +272,9 @@ function PlayerPage() {
 
 
   const categoryLabel =
-    validCategory
+  broadcast
+    ? "SPECIAL BROADCAST"
+    : validCategory
       ? categoryLabels[category]
       : "";
 

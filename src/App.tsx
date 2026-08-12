@@ -60,7 +60,20 @@ function AnimatedRoutes() {
             </motion.div>
           }
         />
-      </Routes>
+        <Route
+          path="/broadcast/:broadcastId"
+          element={
+            <motion.div
+              initial={routeMotion.initial}
+              animate={routeMotion.animate}
+              exit={routeMotion.exit}
+              transition={routeTransition}
+            >
+              <PlayerPage />
+            </motion.div>
+          }
+        />
+      </Routes>  
     </AnimatePresence>
   );
 }

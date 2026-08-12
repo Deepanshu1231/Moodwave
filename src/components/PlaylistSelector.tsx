@@ -1,9 +1,13 @@
-import { useState } from "react";
+import {
+  independenceDayBroadcast,
+} from "../data/specialBroadcasts";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   AnimatePresence,
   motion,
 } from "framer-motion";
+import MusicPlayer from "./MusicPlayer";
 
 import {
   categoryIds,
@@ -19,10 +23,7 @@ import "./PlaylistSelector.css";
 
 const seasonalBroadcast = {
   active: true,
-  eyebrow: "15 AUGUST · SPECIAL BROADCAST",
-  title: "स्वतंत्रता दिवस",
-  subtitle: "Azaadi Ki Dhun · A special transmission from MoodWave FM",
-  image: "/images/independence-banner2.jpg",
+  ...independenceDayBroadcast,
 };
 
 function PlaylistSelector() {
@@ -45,6 +46,37 @@ function PlaylistSelector() {
       categoryIds[nextIndex]
     );
   };
+
+  const [isBroadcastActive, setIsBroadcastActive] =
+    useState(false);
+
+  const [quoteIndex, setQuoteIndex] =
+    useState(0);
+
+  const quoteTimerRef =
+    useRef<number | null>(null);
+
+  useEffect(() => {
+    if (isBroadcastActive) {
+      // start rotating quotes every 8s
+      quoteTimerRef.current = window.setInterval(() => {
+        setQuoteIndex((i) => (i + 1) % (seasonalBroadcast.quotes?.length || 1));
+      }, 8000);
+    } else {
+      if (quoteTimerRef.current !== null) {
+        window.clearInterval(quoteTimerRef.current);
+        quoteTimerRef.current = null;
+      }
+      setQuoteIndex(0);
+    }
+
+    return () => {
+      if (quoteTimerRef.current !== null) {
+        window.clearInterval(quoteTimerRef.current);
+        quoteTimerRef.current = null;
+      }
+    };
+  }, [isBroadcastActive]);
 
   return (
     <main className="playlist-container">
@@ -189,7 +221,7 @@ function PlaylistSelector() {
       {/* SEASONAL BROADCAST */}
       {seasonalBroadcast.active && (
         <motion.section
-          className="seasonal-broadcast"
+          className={`seasonal-broadcast ${isBroadcastActive ? "active" : ""}`}
           initial={{
             opacity: 0,
             y: 12,
@@ -210,14 +242,14 @@ function PlaylistSelector() {
                 rgba(10, 12, 14, 0.52),
                 rgba(10, 12, 14, 0.78)
               ),
-              url("${seasonalBroadcast.image}")
+              url("${seasonalBroadcast.bannerImage}")
             `,
           }}
         >
           <div className="seasonal-broadcast-content">
 
             <span className="seasonal-broadcast-eyebrow">
-              {seasonalBroadcast.eyebrow}
+              15 AUGUST · SPECIAL BROADCAST
             </span>
 
             <h2>
@@ -226,8 +258,62 @@ function PlaylistSelector() {
 
             <p>
               {seasonalBroadcast.subtitle}
+              {" · "}
+              {seasonalBroadcast.description}
             </p>
 
+            <button
+              type="button"
+              className="seasonal-broadcast-button"
+              onClick={() => setIsBroadcastActive((s) => !s)}
+              aria-pressed={isBroadcastActive}
+            >
+              {isBroadcastActive
+                ? "■ ON AIR · AZAADI KI DHUN"
+                : "▶ LISTEN TO THE BROADCAST"}
+            </button>
+
+            {/* Broadcast extra info when active */}
+            {isBroadcastActive && (
+              <div className="broadcast-extras">
+                <div className="broadcast-onair">
+                  <span className="broadcast-dot" />
+                  <div className="broadcast-meta">
+                    <div className="broadcast-station">ON AIR</div>
+                    <div className="broadcast-title">{(seasonalBroadcast.title || "Azaadi Ki Dhun").toUpperCase()}</div>
+                  </div>
+                </div>
+
+                <div className="broadcast-nowplaying">
+                  <MusicPlayer
+                    songs={seasonalBroadcast.playlist.songs}
+                    shouldPlay={isBroadcastActive}
+                    titleLabel="NOW PLAYING"
+                  />
+                </div>
+
+                <div className="broadcast-quote-wrap">
+                  <AnimatePresence mode="wait">
+                    <motion.blockquote
+                      key={quoteIndex}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.6 }}
+                      className="broadcast-quote"
+                    >
+                      <p>
+                        {seasonalBroadcast.quotes?.[quoteIndex]?.text}
+                      </p>
+
+                      <footer>
+                        — {seasonalBroadcast.quotes?.[quoteIndex]?.author}
+                      </footer>
+                    </motion.blockquote>
+                  </AnimatePresence>
+                </div>
+              </div>
+            )}
           </div>
         </motion.section>
       )}
@@ -297,6 +383,7 @@ function PlaylistSelector() {
                   )
                 }
               >
+                
 
                 <div
                   className="playlist-card-image"

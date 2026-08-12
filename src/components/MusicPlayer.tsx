@@ -7,12 +7,18 @@ interface MusicPlayerProps {
   songs: Song[];
   onTrackChange?: (index: number) => void;
   titleLabel?: string;
+  /** When true, player will start playing when ready */
+  shouldPlay?: boolean;
+  /** Render a compact player UI (no controls/progress) */
+  compact?: boolean;
 }
 
 function MusicPlayer({
   songs,
   onTrackChange,
   titleLabel = "NOW PLAYING",
+  shouldPlay = false,
+  compact = false,
 }: MusicPlayerProps) {
   const {
     currentIndex,
@@ -46,6 +52,24 @@ function MusicPlayer({
   useEffect(() => {
     onTrackChange?.(currentIndex);
   }, [currentIndex, onTrackChange]);
+
+  /*
+   * External control: start/pause playback when `shouldPlay` changes.
+   * This ensures playback only starts after an explicit user action.
+   */
+  useEffect(() => {
+    if (shouldPlay) {
+      // only attempt to play when ready
+      if (isReady) {
+        togglePlay();
+      }
+    } else {
+      if (isPlaying) {
+        togglePlay();
+      }
+    }
+    // trigger when shouldPlay, isReady, or isPlaying changes
+  }, [shouldPlay, isReady]);
 
   if (songs.length === 0) {
     return (
@@ -105,55 +129,59 @@ function MusicPlayer({
         </p>
       </section>
 
-      <section className="player-progress">
-        <div className="progress-times">
-          <span>
-            {formatTime(currentTime)}
-          </span>
+      {!compact && (
+        <>
+          <section className="player-progress">
+            <div className="progress-times">
+              <span>
+                {formatTime(currentTime)}
+              </span>
 
-          <span>
-            {formatTime(duration)}
-          </span>
-        </div>
+              <span>
+                {formatTime(duration)}
+              </span>
+            </div>
 
-        <input
-          className="progress-slider"
-          type="range"
-          min="0"
-          max={duration || 0}
-          value={currentTime}
-          step="0.1"
-          onChange={(event) =>
-            seek(
-              Number(
-                event.target.value
-              )
-            )
-          }
-          disabled={!isReady}
-          aria-label="Song progress"
-        />
-      </section>
+            <input
+              className="progress-slider"
+              type="range"
+              min="0"
+              max={duration || 0}
+              value={currentTime}
+              step="0.1"
+              onChange={(event) =>
+                seek(
+                  Number(
+                    event.target.value
+                  )
+                )
+              }
+              disabled={!isReady}
+              aria-label="Song progress"
+            />
+          </section>
 
-      <PlayerControls
-        isPlaying={isPlaying}
-        isReady={isReady}
-        volume={volume}
-        isMuted={isMuted}
-        shuffle={shuffle}
-        repeatMode={repeatMode}
-        onPlayPause={togglePlay}
-        onPrevious={previous}
-        onNext={next}
-        onVolumeChange={setVolume}
-        onMuteToggle={toggleMute}
-        onShuffleToggle={
-          toggleShuffle
-        }
-        onRepeatToggle={
-          cycleRepeatMode
-        }
-      />
+          <PlayerControls
+            isPlaying={isPlaying}
+            isReady={isReady}
+            volume={volume}
+            isMuted={isMuted}
+            shuffle={shuffle}
+            repeatMode={repeatMode}
+            onPlayPause={togglePlay}
+            onPrevious={previous}
+            onNext={next}
+            onVolumeChange={setVolume}
+            onMuteToggle={toggleMute}
+            onShuffleToggle={
+              toggleShuffle
+            }
+            onRepeatToggle={
+              cycleRepeatMode
+            }
+          />
+        </>
+      )}
     </div>
   );
 }
