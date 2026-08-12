@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { Transition } from "framer-motion";
 import PlaylistSelector from "./components/PlaylistSelector";
 import PlayerPage from "./components/PlayerPage";
+import { Analytics } from "@vercel/analytics/react";
 
 const routeTransition: Transition = {
   duration: 0.5,
@@ -68,6 +69,7 @@ function App() {
   return (
     <BrowserRouter>
       <AnimatedRoutes />
+      <Analytics />
     </BrowserRouter>
   );
 }

@@ -36,3 +36,36 @@ const uniqueSongs = [...new Map(songs.map(song => [song.id, song])).values()];
 
 // Print it out beautifully as JSON so you can copy/paste it directly into your code!
 console.log(JSON.stringify(uniqueSongs, null, 2));
+
+
+
+
+
+
+
+// Grab all song rows on YouTube Music
+const rows = document.querySelectorAll('ytmusic-responsive-list-item-renderer');
+
+const songs = Array.from(rows).map(row => {
+  // Grab the title from the flex columns
+  const titleEl = row.querySelector('.title-column, [class*="title"]');
+  const title = titleEl ? titleEl.textContent.replace(/\s+/g, ' ').trim() : 'Unknown Title';
+  
+  // Find any watch link inside this row to get the video ID
+  const linkEl = row.querySelector('a[href*="watch?v="]');
+  let id = null;
+  if (linkEl) {
+    try {
+      id = new URL(linkEl.href, window.location.origin).searchParams.get('v');
+    } catch (e) {
+      id = null;
+    }
+  }
+  
+  return { id, title };
+}).filter(song => song.id !== null);
+
+// Deduplicate
+const uniqueSongs = [...new Map(songs.map(song => [song.id, song])).values()];
+
+console.log(JSON.stringify(uniqueSongs, null, 2));
