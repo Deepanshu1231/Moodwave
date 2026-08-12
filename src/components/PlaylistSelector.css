@@ -14,12 +14,11 @@
     clamp(22px, 4vw, 60px);
 
   background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(255, 255, 255, 0.07),
-      transparent 35%
-    ),
-    #0d0e12;
+  linear-gradient(
+    rgba(7, 9, 11, 0.62),
+    rgba(7, 9, 11, 0.68)
+  ),
+  url("/images/independence-banner.jpg") center / cover no-repeat fixed;
 
   color: #ffffff;
 }
@@ -805,5 +804,128 @@
     flex-wrap: wrap;
 
     line-height: 1.5;
+  }
+
+  
+}
+
+/* =========================================
+   SEASONAL BROADCAST
+   ========================================= */
+
+.seasonal-broadcast {
+  position: relative;
+  width: min(1180px, 100%);
+  height: 128px;
+  margin: 18px auto 22px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid rgba(244, 205, 132, 0.22);
+  border-radius: 4px;
+
+  background-size: cover;
+  background-position: center;
+
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.28);
+
+  isolation: isolate;
+}
+
+.seasonal-broadcast::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(244, 205, 132, 0.06),
+      transparent 45%,
+      rgba(0, 0, 0, 0.12)
+    );
+
+  opacity: 0.8;
+}
+
+.seasonal-broadcast-content {
+  position: relative;
+  z-index: 2;
+
+  padding: 20px 28px;
+  max-width: 700px;
+
+  color: #f4eee3;
+}
+
+.seasonal-broadcast-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: #d8b875;
+}
+
+.seasonal-broadcast h2 {
+  margin: 0;
+
+  font-family: inherit;
+  font-size: clamp(25px, 3vw, 36px);
+  font-weight: 500;
+  line-height: 1;
+
+  color: #f5f0e7;
+
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+.seasonal-broadcast p {
+  margin: 9px 0 0;
+
+  font-size: 12px;
+  letter-spacing: 0.08em;
+
+  color: rgba(244, 238, 227, 0.72);
+}
+
+
+/* =========================================
+   SEASONAL BROADCAST — MOBILE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+  .seasonal-broadcast {
+    height: 120px;
+    margin-top: 16px;
+    margin-bottom: 18px;
+  }
+
+  .seasonal-broadcast-content {
+    padding: 18px 20px;
+  }
+
+  .seasonal-broadcast-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.16em;
+  }
+
+  .seasonal-broadcast h2 {
+    font-size: 25px;
+  }
+
+  .seasonal-broadcast p {
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
   }
 }

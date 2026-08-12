@@ -17,6 +17,14 @@ import type {
 
 import "./PlaylistSelector.css";
 
+const seasonalBroadcast = {
+  active: true,
+  eyebrow: "15 AUGUST · SPECIAL BROADCAST",
+  title: "स्वतंत्रता दिवस",
+  subtitle: "Azaadi Ki Dhun · A special transmission from MoodWave FM",
+  image: "/images/independence-banner2.jpg",
+};
+
 function PlaylistSelector() {
   const navigate = useNavigate();
 
@@ -80,7 +88,6 @@ function PlaylistSelector() {
           WELCOME TO THE FREQUENCY
         </motion.p>
 
-
         <motion.h1
           className="playlist-heading"
           initial={{
@@ -97,7 +104,6 @@ function PlaylistSelector() {
         >
           Choose Your Vibe
         </motion.h1>
-
 
         <motion.p
           className="hero-subtitle"
@@ -180,6 +186,53 @@ function PlaylistSelector() {
       </div>
 
 
+      {/* SEASONAL BROADCAST */}
+      {seasonalBroadcast.active && (
+        <motion.section
+          className="seasonal-broadcast"
+          initial={{
+            opacity: 0,
+            y: 12,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: 0.2,
+          }}
+          style={{
+            backgroundImage: `
+              linear-gradient(
+                90deg,
+                rgba(10, 12, 14, 0.88),
+                rgba(10, 12, 14, 0.52),
+                rgba(10, 12, 14, 0.78)
+              ),
+              url("${seasonalBroadcast.image}")
+            `,
+          }}
+        >
+          <div className="seasonal-broadcast-content">
+
+            <span className="seasonal-broadcast-eyebrow">
+              {seasonalBroadcast.eyebrow}
+            </span>
+
+            <h2>
+              {seasonalBroadcast.title}
+            </h2>
+
+            <p>
+              {seasonalBroadcast.subtitle}
+            </p>
+
+          </div>
+        </motion.section>
+      )}
+
+
       {/* PLAYLISTS */}
       <AnimatePresence mode="wait">
 
@@ -248,12 +301,12 @@ function PlaylistSelector() {
                 <div
                   className="playlist-card-image"
                   style={{
-                    backgroundImage: playlist.scenes[0]?.image
-                      ? `url(${playlist.scenes[0].image})`
-                      : undefined,
+                    backgroundImage:
+                      playlist.scenes[0]?.image
+                        ? `url(${playlist.scenes[0].image})`
+                        : undefined,
                   }}
                 />
-
 
                 <div className="playlist-card-content">
 
