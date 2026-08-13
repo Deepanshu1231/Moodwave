@@ -453,6 +453,11 @@ function PlaylistSelector() {
 
       </footer>
 
+      {/* CREDIT */}
+      <div className="creator-credit">
+        @Prafful Jain
+      </div>
+
     </main>
   );
 }
